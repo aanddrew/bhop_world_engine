@@ -50,12 +50,12 @@ Vec3 Vec3::operator /(float scalar) const {
 }
 
 float Vec3::operator[](int index) {
-	switch(index) {
-		case 0:	return x; break;
-		case 1: return y; break;
-		case 2: return z; break;
-	}
-	throw std::invalid_argument("Vector index out of bounds");
+    switch(index) {
+        case 0: return x; break;
+        case 1: return y; break;
+        case 2: return z; break;
+    }
+    throw std::invalid_argument("Vector index out of bounds");
 }
 
 float Vec3::magnitude() {

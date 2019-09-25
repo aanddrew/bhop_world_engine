@@ -5,74 +5,74 @@
 #include <math.h>
 
 Camera::Camera() {
-	location = {0,0,0};
+    location = {0,0,0};
 
-	forward  = {0,0,1};
-	up 		 = {0,1,0};
-	right 	 = {1,0,0};
+    forward  = {0,0,1};
+    up       = {0,1,0};
+    right    = {1,0,0};
 
-	yaw = 0.0f;
-	pitch = 0.0f;
+    yaw = 0.0f;
+    pitch = 0.0f;
 
-	fov = 3.1415/2;
+    fov = 3.1415/2;
 }
 
 const Vec3& Camera::get_forward() const {
-	return forward;
+    return forward;
 }
 
 const Vec3& Camera::get_right() const {
-	return right;
+    return right;
 }
 
 const Vec3& Camera::get_up() const {
-	return up;
+    return up;
 }
 
 const Vec3& Camera::get_location() const {
-	return location;
+    return location;
 }
 
 float Camera::get_pitch() const {
-	return pitch;
+    return pitch;
 }
 
 float Camera::get_yaw() const {
-	return yaw;
+    return yaw;
 }
 
 float Camera::get_fov() const {
-	return fov;
+    return fov;
 }
 
 float Camera::get_aspect_ratio() const {
-	return aspect_ratio;
+    return aspect_ratio;
 }
 
 Vec2 Camera::project_point(const Camera& cam, const Vec3& in) {
-	//the point using our camera's coordinate system
-	Vec3 relative_point = {
-		Vec3::dot(cam.right, in),
-		Vec3::dot(cam.up, in),
-		Vec3::dot(cam.forward, in)
-	};
+    //the point using our camera's coordinate system
+    Vec3 relative_point = {
+        Vec3::dot(cam.right, in),
+        Vec3::dot(cam.up, in),
+        Vec3::dot(cam.forward, in)
+    };
 
-	Vec2 projected = {
-		relative_point.x / relative_point.z,
-		relative_point.y / relative_point.z
-	};
-	
-	return projected;
+    Vec2 projected = {
+        relative_point.x / relative_point.z,
+        relative_point.y / relative_point.z
+    };
+    
+    return projected;
 }
 
 void Camera::set_rotation(float pitch, float yaw) {
-	this->pitch = pitch;
-	this->yaw	= yaw;
+    this->pitch = pitch;
+    this->yaw   = yaw;
 
-	//rotate default frame by this pitch, then this yaw
-	forward = {0,0,1};
-	up 		= {0,1,0};
-	right	= {1,0,0};
+    //rotate default frame by this pitch, then this yaw
+    forward = {0,0,1};
+    up      = {0,1,0};
+    right   = {1,0,0};
 
     Mat3 pitch_rotation = Mat3::rotation_around_x(pitch);
     Mat3 yaw_rotation   = Mat3::rotation_around_y(yaw);
@@ -89,7 +89,7 @@ void Camera::set_rotation(float pitch, float yaw) {
 }
 
 void Camera::rotate(float d_pitch, float d_yaw) {
-	pitch += d_pitch;
+    pitch += d_pitch;
     yaw += d_yaw;
 
     set_rotation(pitch, yaw);

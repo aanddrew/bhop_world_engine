@@ -44,11 +44,11 @@ Vec2 Vec2::operator /(float scalar) const {
 }
 
 float Vec2::operator[](int index) {
-	switch(index) {
-		case 0:	return x; break;
-		case 1: return y; break;
-	}
-	throw std::invalid_argument("Vector index out of bounds");
+    switch(index) {
+        case 0: return x; break;
+        case 1: return y; break;
+    }
+    throw std::invalid_argument("Vector index out of bounds");
 }
 
 float Vec2::magnitude() {
