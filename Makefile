@@ -8,8 +8,11 @@ DEPS = engine/math/Vec2.cpp engine/math/Vec3.cpp engine/math/Mat3.cpp engine/gra
 main.o: main.cpp 
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
-bhop_world: main.o engine/math/Vec2.o engine/math/Vec3.o engine/math/Mat3.o engine/graphics/Camera.o
-	$(CXX) -o bhop_world main.o engine/math/Vec2.o engine/math/Vec3.o engine/math/Mat3.o engine/graphics/Camera.o
+OBJS = main.o engine/math/Vec2.o engine/math/Vec3.o engine/math/Mat3.o engine/graphics/Camera.o
 
+bhop_world: $(OBJS)
+	$(CXX) -o bhop_world $(OBJS)
+
+.PHONY : clean
 clean:
-	find . *.o
+	-rm $(OBJS)
