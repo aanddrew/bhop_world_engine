@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ostream>
+
 #include "../math/Vec3.h"
 #include "../math/Vec2.h"
 
@@ -25,6 +27,14 @@ public:
 	void rotate(float d_pitch, float d_yaw);
 
 	static Vec2 project_point(const Camera& cam, const Vec3& in);
+
+    friend std::ostream& operator<<(std::ostream& os, const Camera& cam){
+        os << "Camera:" 
+           << "\tforward: " << cam.get_forward() << std::endl
+           << "\tright:   " << cam.get_right() << std::endl
+           << "\tup:      " << cam.get_up() << std::endl;
+        return os;
+    }
 
 private:
 	Vec3 forward, right, up;
