@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "../math/Vec3.h"
+#include "../math/Mat3.h"
 
 #include <math.h>
 
@@ -73,16 +74,23 @@ void Camera::set_rotation(float pitch, float yaw) {
 	up 		= {0,1,0};
 	right	= {1,0,0};
 
-	float cosine_pitch = cos(pitch);
-	float sin_pitch    = sin(pitch);
+    Mat3 pitch_rotation = Mat3::rotation_around_x(pitch);
+    Mat3 yaw_rotation   = Mat3::rotation_around_y(yaw);
 
-	float cosine_yaw = cos(yaw);
-	float sin_yaw	 = sin(yaw);
+    //pitch
+    forward = pitch_rotation * forward;
+    up = pitch_rotation * up;
+    right = pitch_rotation * right;
 
-	
-
+    //then yaw
+    forward = yaw_rotation * forward;
+    up = yaw_rotation * up;
+    right = yaw_rotation * right;
 }
 
 void Camera::rotate(float d_pitch, float d_yaw) {
-	
+	pitch += d_pitch;
+    yaw += d_yaw;
+
+    set_rotation(pitch, yaw);
 }
