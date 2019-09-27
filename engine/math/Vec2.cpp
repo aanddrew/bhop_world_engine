@@ -1,5 +1,7 @@
 #include "Vec2.h"
 
+namespace bh {
+
 Vec2::Vec2(float x, float y) {
     this-> x = x;
     this-> y = y;
@@ -66,4 +68,6 @@ Vec2 Vec2::normalize() {
 float Vec2::dot(const Vec2& first, const Vec2& second) {
     return first.x * second.x 
          + first.y * second.y;
+}
+
 }

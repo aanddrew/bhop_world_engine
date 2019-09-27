@@ -2,6 +2,8 @@
 
 #include "Vec3.h"
 
+namespace bh {
+
 class Mat3{
 public:
     Mat3(const Vec3& first, const Vec3& second, const Vec3& third);
@@ -26,3 +28,5 @@ public:
 private:
     Vec3 first, second, third;
 };
+
+}

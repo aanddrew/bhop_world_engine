@@ -5,6 +5,8 @@
 #include "../math/Vec3.h"
 #include "../math/Vec2.h"
 
+namespace bh {
+
 class Camera {
 public:
     Camera();
@@ -44,3 +46,5 @@ private:
     float fov;
     float aspect_ratio;
 };
+
+}

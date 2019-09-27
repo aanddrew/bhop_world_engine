@@ -1,5 +1,7 @@
 #include "Vec3.h"
 
+namespace bh {
+
 Vec3::Vec3(float x, float y, float z) {
     this-> x = x;
     this-> y = y;
@@ -82,4 +84,6 @@ Vec3 Vec3::cross(const Vec3& first, const Vec3& second) {
         first.z * second.x - first.x * second.z,
         first.x * second.y - first.y * second.x
     );
+}
+
 }

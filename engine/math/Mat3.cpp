@@ -1,6 +1,8 @@
 #include "Mat3.h"
 #include <math.h>
 
+namespace bh {
+
 Mat3::Mat3(const Vec3& first, const Vec3& second, const Vec3& third) {
     this->first = first;
     this->second = second;
@@ -63,4 +65,6 @@ Mat3 Mat3::rotation_around_z(float theta) {
         {sin_theta,    cos_theta, 0},
         {        0,            0, 1}
     };
+}
+
 }

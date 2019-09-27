@@ -3,6 +3,8 @@
 #include <ostream>
 #include <math.h>
 
+namespace bh {
+
 class Vec3 {
 public:
     Vec3(float, float, float);
@@ -31,3 +33,5 @@ public:
 
     float x, y, z;
 };
+
+}

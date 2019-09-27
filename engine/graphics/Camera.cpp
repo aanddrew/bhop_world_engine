@@ -4,6 +4,8 @@
 
 #include <math.h>
 
+namespace bh {
+
 Camera::Camera() {
     location = {0,0,0};
 
@@ -93,4 +95,6 @@ void Camera::rotate(float d_pitch, float d_yaw) {
     yaw += d_yaw;
 
     set_rotation(pitch, yaw);
+}
+
 }
