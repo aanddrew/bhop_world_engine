@@ -1,17 +1,16 @@
-CXX=g++
-CFLAGS=-std=c++11 -g
-DEPS = engine/math/Vec2.cpp engine/math/Vec3.cpp engine/math/Mat3.cpp engine/graphics/Camera.cpp
+export CXX=g++
+export CFLAGS=-std=c++11 -g
+export LFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 
-%.o: %.cpp $(DEPS)
-	$(CXX) -c -o $@ $< $(CFLAGS)
+OBJS=obj/*.o
 
-main.o: main.cpp 
-	$(CXX) -c -o $@ $< $(CFLAGS)
+%.o: %.cpp
+	$(CXX) -c -o obj/$@ $<
 
-OBJS = main.o engine/math/Vec2.o engine/math/Vec3.o engine/math/Mat3.o engine/graphics/Camera.o
-
-bhop_world: $(OBJS)
-	$(CXX) -o bhop_world $(OBJS)
+bhop_world: main.o
+	+$(MAKE) -C engine/graphics
+	+$(MAKE) -C engine/math
+	$(CXX) -o bhop_world $(OBJS) $(LFLAGS)
 
 .PHONY : clean
 clean:
