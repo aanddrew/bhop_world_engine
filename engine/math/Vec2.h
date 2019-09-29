@@ -3,6 +3,8 @@
 #include <ostream>
 #include <math.h>
 
+#include <SFML/Graphics.hpp>
+
 namespace bh {
 
 class Vec2 {
@@ -29,6 +31,8 @@ public:
         os << "<" << vec.x << ", " << vec.y << ">";
         return os;
     }
+
+    sf::Vector2f to_sfml_vector() const;
 
     float x, y;
 };
