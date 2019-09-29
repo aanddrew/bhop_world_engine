@@ -5,7 +5,7 @@ export LFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 OBJS=obj/*.o
 
 %.o: %.cpp
-	$(CXX) -c -o obj/$@ $<
+	$(CXX) -c -o obj/$@ $< $(LFLAGS)
 
 bhop_world: main.o
 	+$(MAKE) -C engine/graphics

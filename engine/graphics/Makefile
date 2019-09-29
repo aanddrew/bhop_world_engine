@@ -1,5 +1,5 @@
 DEPS=*.h
-%.o: %.cpp $(DEPS)
-	$(CXX) -c -o ../../obj/$@ $< $(CFLAGS)
+../../obj/%.o: %.cpp $(DEPS)
+	$(CXX) -c -o $@ $< $(CFLAGS)
 
-all: Camera.o
+all: ../../obj/Camera.o ../../obj/Tri2.o

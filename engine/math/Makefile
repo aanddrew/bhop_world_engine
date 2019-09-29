@@ -1,5 +1,5 @@
 DEPS=*.h
-%.o: %.cpp $(DEPS)
-	$(CXX) -c -o ../../obj/$@ $< $(CFLAGS)
+../../obj/%.o: %.cpp $(DEPS)
+	$(CXX) -c -o $@ $< $(CFLAGS)
 
-all: Vec3.o Vec2.o Mat3.o
+all: ../../obj/Vec3.o ../../obj/Vec2.o ../../obj/Mat3.o
