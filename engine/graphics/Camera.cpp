@@ -99,7 +99,7 @@ void Camera::set_rotation(float pitch, float yaw) {
 }
 
 void Camera::rotate(float d_pitch, float d_yaw) {
-    pitch += d_pitch;
+    pitch -= d_pitch;
     yaw += d_yaw;
 
     set_rotation(pitch, yaw);
