@@ -2,3 +2,5 @@
 #include "math/Vec2.h"
 #include "math/Mat3.h"
 #include "graphics/Camera.h"
+#include "graphics/Tri2.h"
+#include "graphics/Tri3.h"
