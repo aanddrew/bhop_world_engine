@@ -1,5 +1,5 @@
 export CXX=g++
-export CFLAGS=-std=c++11 -g
+export CFLAGS=-std=c++11 -g -Wall
 export LFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 
 OBJS=obj/*.o
