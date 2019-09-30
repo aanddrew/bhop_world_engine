@@ -29,6 +29,18 @@ Vec4 Mat4::operator*(const Vec4& other) {
     };
 }
 
+Vec3 Mat4::operator*(const Vec3& other) {
+    Vec4 other4 = Vec4(other, 1);
+    Vec4 transformed = {
+        Vec4::dot(first, other4),
+        Vec4::dot(second, other4),
+        Vec4::dot(third, other4),
+        Vec4::dot(fourth, other4)
+    };
+    transformed /= transformed.w;
+    return Vec3(transformed.x, transformed.y, transformed.z);
+}
+
 Mat4 Mat4::identity() {
     return {
         {1,0,0,0},

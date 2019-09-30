@@ -11,6 +11,7 @@ public:
 
     const Vec4& operator[](int index) const;
     Vec4 operator*(const Vec4& other);
+    Vec3 operator*(const Vec3& other);
 
     static Mat4 identity();
 
