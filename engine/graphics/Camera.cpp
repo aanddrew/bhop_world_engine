@@ -67,6 +67,14 @@ Vec2 Camera::project_point(const Camera& cam, const Vec3& in) {
     return projected;
 }
 
+Tri2 Camera::project_triangle(const Camera& cam, const Tri3& in) {
+    Vec2 a = project_point(cam, in.a);
+    Vec2 b = project_point(cam, in.b);
+    Vec2 c = project_point(cam, in.c);
+
+    return Tri2(a, b, c);
+}
+
 void Camera::set_rotation(float pitch, float yaw) {
     this->pitch = pitch;
     this->yaw   = yaw;

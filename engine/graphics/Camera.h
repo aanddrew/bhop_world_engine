@@ -4,6 +4,8 @@
 
 #include "../math/Vec3.h"
 #include "../math/Vec2.h"
+#include "Tri2.h"
+#include "Tri3.h"
 
 namespace bh {
 
@@ -29,6 +31,7 @@ public:
     void rotate(float d_pitch, float d_yaw);
 
     static Vec2 project_point(const Camera& cam, const Vec3& in);
+    static Tri2 project_triangle(const Camera& cam, const Tri3& in);
 
     friend std::ostream& operator<<(std::ostream& os, const Camera& cam){
         os << "Camera:" 
