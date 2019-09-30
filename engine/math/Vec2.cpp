@@ -11,6 +11,27 @@ Vec2::Vec2()
 : Vec2(0, 0)
 {}
 
+
+void Vec2::operator +=(const Vec2& other) {
+    x += other.x;
+    y += other.y;
+}
+
+void Vec2::operator -=(const Vec2& other) {
+    x -= other.x;
+    y -= other.y;
+}
+
+void Vec2::operator *=(float scalar) {
+    x *= scalar;
+    y *= scalar;
+}
+
+void Vec2::operator /=(float scalar) {
+    x /= scalar;
+    y /= scalar;
+}
+
 Vec2& Vec2::operator =(const Vec2& other) {
     x = other.x;
     y = other.y;
