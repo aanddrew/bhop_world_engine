@@ -75,7 +75,7 @@ Vec3 Vec3::operator /(float scalar) const {
     );
 }
 
-float Vec3::operator[](int index) {
+float Vec3::operator[](int index) const {
     switch(index) {
         case 0: return x; break;
         case 1: return y; break;

@@ -104,7 +104,7 @@ Vec4 Vec4::operator /(float scalar) const {
     );
 }
 
-float Vec4::operator[](int index) {
+float Vec4::operator[](int index) const {
     switch(index) {
         case 0: return x; break;
         case 1: return y; break;

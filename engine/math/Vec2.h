@@ -24,7 +24,7 @@ public:
     Vec2  operator *(float scalar) const;
     Vec2  operator /(float scalar) const;
 
-    float operator[](int index);
+    float operator[](int index) const;
 
     float magnitude();
     float magnitude_squared();

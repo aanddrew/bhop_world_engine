@@ -66,7 +66,7 @@ Vec2 Vec2::operator /(float scalar) const {
     );
 }
 
-float Vec2::operator[](int index) {
+float Vec2::operator[](int index) const {
     switch(index) {
         case 0: return x; break;
         case 1: return y; break;
