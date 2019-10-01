@@ -14,7 +14,16 @@ public:
     void apply_transform(Mat3 transform);
     void apply_transform(Mat4 transform);
 
-    void split_by_plane(Vec3 plane_loc, Vec3 plane_dir, Tri3* returned);
+    void split_by_plane(Vec3 plane_loc, Vec3 plane_dir, Tri3* returned) const;
+
+    friend std::ostream& operator<<(std::ostream& os, const Tri3& tri){
+        os << "Tri3:" << std::endl
+           << "\ta: " << tri.a << std::endl
+           << "\tb: " << tri.b << std::endl
+           << "\tc: " << tri.c << std::endl;
+        return os;
+    }
+
 
     Vec3 a, b, c;
 private:
