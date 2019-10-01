@@ -83,14 +83,12 @@ bool Camera::project_point(const Camera& cam, const Vec3& in, Vec2* filled) {
 
 Camera::NumTrianglesGenerated Camera::project_triangle(const Camera& cam, const Tri3& in, Tri2* filled) {
     //first, we split the triangle according to the plane of the camera.
-    std::cout << cam << std::endl;
     if (point_behind_plane(cam.get_location(), cam.get_forward(), in.a)|| point_behind_plane(cam.get_location(), cam.get_forward(), in.b) || point_behind_plane(cam.get_location(), cam.get_forward(), in.c)){
         static Tri3 splits[3]; // don't have to keep remaking this
         //have to split the triangle
         in.split_by_plane(cam.get_location() + cam.get_forward() * 0.1, cam.get_forward(), splits);
         int num_triangles_generated = 0;
         for(int i = 0; i < 3; i++) {
-            std::cout << splits[i] << std::endl;
             if(!triangle_is_behind(cam, splits[i])){
                 Vec2 a, b, c;
                 project_point(cam, splits[i].a, &a);

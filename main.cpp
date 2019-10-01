@@ -13,9 +13,9 @@ int main() {
     );
 
     bh::Tri3 weird_triangle {
-        bh::Vec3(0.0f, 0.0f, 7.0f),
-        bh::Vec3(-1.0f, 5.0f, 12.0f),
-        bh::Vec3(-2.0f, -3.0f, 4.0f)
+        bh::Vec3(0.0f, -2.0f, 7.0f),
+        bh::Vec3(-12.0f, -2.0f, 12.0f),
+        bh::Vec3(12.0f, -2.0f, 12.0f)
     };
 
     bh::Camera cam;
@@ -49,18 +49,33 @@ int main() {
                     case sf::Keyboard::Key::Down:
 				        cam.rotate(-0.1, 0);
 					break;
+                    case sf::Keyboard::Key::W:
+                        cam.move_location(cam.get_forward() * 0.1);
+                    break;
+                    case sf::Keyboard::Key::A:
+                        cam.move_location(cam.get_right() * -0.1);
+                    break;
+                    case sf::Keyboard::Key::S:
+                        cam.move_location(cam.get_forward() * -0.1);
+                    break;
+                    case sf::Keyboard::Key::D:
+                        cam.move_location(cam.get_right() * 0.1);
+                    break;
                 }
             }
         }
         
         //weird_triangle.c.z += 0.001;
-        weird_triangle.apply_transform(rotation);
+        //weird_triangle.apply_transform(rotation);
         //weird_triangle.apply_transform(translation);
         //cam.rotate(0.000001, -0.000001);
-        bh::Tri2 projection = bh::Camera::project_triangle(cam, weird_triangle);
+        bh::Tri2 projections[3];
+        int num_triangles = bh::Camera::project_triangle(cam, weird_triangle, projections);
 
         window.clear();
-        bh::Tri2::draw_to_screen(projection, window);
+        for(int i = 0; i < num_triangles; i++) {
+            bh::Tri2::draw_to_screen(projections[i], window);
+        }
         window.display();
     }
 	return 0;
