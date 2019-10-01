@@ -33,11 +33,21 @@ public:
     void set_location(const Vec3& new_location);
     void move_location(const Vec3& delta);
 
-    static Vec2 project_point(const Camera& cam, const Vec3& in);
-    static Tri2 project_triangle(const Camera& cam, const Tri3& in);
+    enum NumTrianglesGenerated {
+        Zero,
+        One,
+        Two,
+        Three
+    };
+
+    static bool project_point(const Camera& cam, const Vec3& in, Vec2* filled);
+    static NumTrianglesGenerated project_triangle(const Camera& cam, const Tri3& in, Tri2* filled);
+
+    static bool triangle_is_behind(const Camera& cam, const Tri3& triangle);
 
     friend std::ostream& operator<<(std::ostream& os, const Camera& cam){
         os << "Camera:" 
+           << "\tlocation:" << cam.get_location() << std::endl
            << "\tforward: " << cam.get_forward() << std::endl
            << "\tright:   " << cam.get_right() << std::endl
            << "\tup:      " << cam.get_up() << std::endl;

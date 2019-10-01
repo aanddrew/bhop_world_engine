@@ -1,8 +1,10 @@
 #include "Camera.h"
 #include "../math/Vec3.h"
 #include "../math/Mat3.h"
+#include "../math/Utils.h"
 
 #include <math.h>
+#include <iostream>
 
 namespace bh {
 
@@ -51,7 +53,17 @@ float Camera::get_aspect_ratio() const {
     return aspect_ratio;
 }
 
-Vec2 Camera::project_point(const Camera& cam, const Vec3& in) {
+bool Camera::triangle_is_behind(const Camera& cam, const Tri3& triangle) {
+    return point_behind_plane(cam.get_location(), cam.get_forward(), triangle.a)
+        || point_behind_plane(cam.get_location(), cam.get_forward(), triangle.b)
+        || point_behind_plane(cam.get_location(), cam.get_forward(), triangle.c);
+}
+
+bool Camera::project_point(const Camera& cam, const Vec3& in, Vec2* filled) {
+    if (point_behind_plane(cam.get_location(), cam.get_forward(), in)) {
+        return false;
+    }
+
     Vec3 delta_point = in - cam.get_location();
     //the point using our camera's coordinate system
     Vec3 relative_point = {
@@ -65,15 +77,42 @@ Vec2 Camera::project_point(const Camera& cam, const Vec3& in) {
         relative_point.y / relative_point.z
     };
     
-    return projected;
+    *filled = projected;
+    return true;
 }
 
-Tri2 Camera::project_triangle(const Camera& cam, const Tri3& in) {
-    Vec2 a = project_point(cam, in.a);
-    Vec2 b = project_point(cam, in.b);
-    Vec2 c = project_point(cam, in.c);
+Camera::NumTrianglesGenerated Camera::project_triangle(const Camera& cam, const Tri3& in, Tri2* filled) {
+    //first, we split the triangle according to the plane of the camera.
+    std::cout << cam << std::endl;
+    if (point_behind_plane(cam.get_location(), cam.get_forward(), in.a)|| point_behind_plane(cam.get_location(), cam.get_forward(), in.b) || point_behind_plane(cam.get_location(), cam.get_forward(), in.c)){
+        static Tri3 splits[3]; // don't have to keep remaking this
+        //have to split the triangle
+        in.split_by_plane(cam.get_location() + cam.get_forward() * 0.1, cam.get_forward(), splits);
+        int num_triangles_generated = 0;
+        for(int i = 0; i < 3; i++) {
+            std::cout << splits[i] << std::endl;
+            if(!triangle_is_behind(cam, splits[i])){
+                Vec2 a, b, c;
+                project_point(cam, splits[i].a, &a);
+                project_point(cam, splits[i].b, &b);
+                project_point(cam, splits[i].c, &c);
+                
+                filled[num_triangles_generated] = Tri2(a, b, c);
+                num_triangles_generated++;
+            }
+        }
+        
+        return static_cast<NumTrianglesGenerated>(num_triangles_generated);
+    }
+    else {
+        Vec2 a, b, c;
+        project_point(cam, in.a, &a);
+        project_point(cam, in.b, &b);
+        project_point(cam, in.c, &c);
 
-    return Tri2(a, b, c);
+        filled[0] = Tri2(a, b, c);
+        return NumTrianglesGenerated::One;
+    }
 }
 
 void Camera::set_rotation(float pitch, float yaw) {
