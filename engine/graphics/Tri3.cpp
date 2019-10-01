@@ -27,7 +27,7 @@ void Tri3::apply_transform(Mat4 transform) {
 //splits a triangle along a plane, fills the returned array with the 
 //3 resulting triangles.
 //assumes that the plane actually intersects the triangle.
-void Tri3::split_by_plane(Vec3 plane_loc, Vec3 plane_dir, Tri3* returned) {
+void Tri3::split_by_plane(Vec3 plane_loc, Vec3 plane_dir, Tri3* returned) const {
     //get the plane in the form of ax + by + cz = d
     float plane_a = plane_dir[0];
     float plane_b = plane_dir[1];
@@ -50,7 +50,7 @@ void Tri3::split_by_plane(Vec3 plane_loc, Vec3 plane_dir, Tri3* returned) {
         )
         /
         (plane_a*ab[0] + plane_b*ab[1] + plane_c*ab[2]);
-    Vec3 intersect_d = this->b + ab*t1;
+    Vec3 intersect_d = this->a + ab*t1;
 
     float t2 = 
         (plane_d 
