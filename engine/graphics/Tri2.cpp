@@ -14,10 +14,17 @@ Tri2::Tri2(Vec2 a, Vec2 b, Vec2 c) {
 
 void Tri2::draw_to_screen(const Tri2& triangle, sf::RenderWindow& window)
 {
+    static sf::Color colors[2] = {
+        sf::Color(rand() % 255, rand() % 255, rand() % 255),
+        sf::Color(rand() % 255, rand() % 255, rand() % 255)
+    };
+    static int next_color = 0;
+    next_color++;
+    next_color %= 2;
+
     sf::ConvexShape polygon;
     polygon.setPointCount(3);
-    static sf::Color color = sf::Color(rand() % 255, rand() % 255, rand() % 255);
-    polygon.setFillColor(color);
+    polygon.setFillColor(colors[next_color]);
 
     Vec2 a = triangle.a;
     Vec2 b = triangle.b;
