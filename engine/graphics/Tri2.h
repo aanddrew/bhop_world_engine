@@ -8,6 +8,7 @@ namespace bh {
 
 class Tri2 {
 public:
+    Tri2();
     Tri2(Vec2 a, Vec2 b, Vec2 c);
 
     static void draw_to_screen(const Tri2& triangle, sf::RenderWindow& window);

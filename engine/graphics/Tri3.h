@@ -8,6 +8,7 @@ namespace bh {
 
 class Tri3 {
 public:
+    Tri3();
     Tri3(Vec3 a, Vec3 b, Vec3 c);
 
     void apply_transform(Mat3 transform);

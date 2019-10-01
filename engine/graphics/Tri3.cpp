@@ -1,6 +1,10 @@
 #include "Tri3.h"
 
+#include <iostream>
+
 namespace bh {
+
+Tri3::Tri3() {}
 
 Tri3::Tri3(Vec3 a, Vec3 b, Vec3 c) {
     this->a = a;

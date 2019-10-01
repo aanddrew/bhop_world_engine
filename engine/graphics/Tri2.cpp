@@ -3,6 +3,8 @@
 #include <iostream>
 
 namespace bh {
+
+Tri2::Tri2() {}
     
 Tri2::Tri2(Vec2 a, Vec2 b, Vec2 c) {
     this->a = a;
