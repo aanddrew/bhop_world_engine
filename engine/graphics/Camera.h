@@ -30,6 +30,9 @@ public:
     void set_rotation(float pitch, float yaw);
     void rotate(float d_pitch, float d_yaw);
 
+    void set_location(const Vec3& new_location);
+    void move_location(const Vec3& delta);
+
     static Vec2 project_point(const Camera& cam, const Vec3& in);
     static Tri2 project_triangle(const Camera& cam, const Tri3& in);
 

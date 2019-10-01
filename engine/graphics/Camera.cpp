@@ -52,11 +52,12 @@ float Camera::get_aspect_ratio() const {
 }
 
 Vec2 Camera::project_point(const Camera& cam, const Vec3& in) {
+    Vec3 delta_point = in - cam.get_location();
     //the point using our camera's coordinate system
     Vec3 relative_point = {
-        Vec3::dot(cam.right, in),
-        Vec3::dot(cam.up, in),
-        Vec3::dot(cam.forward, in)
+        Vec3::dot(cam.right, delta_point),
+        Vec3::dot(cam.up, delta_point),
+        Vec3::dot(cam.forward, delta_point)
     };
 
     Vec2 projected = {
@@ -105,4 +106,11 @@ void Camera::rotate(float d_pitch, float d_yaw) {
     set_rotation(pitch, yaw);
 }
 
+void Camera::set_location(const Vec3& new_location) {
+    location = new_location;
+}
+
+void Camera::move_location(const Vec3& delta) {
+    location += delta;
+}
 }
