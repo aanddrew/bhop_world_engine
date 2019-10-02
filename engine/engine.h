@@ -6,3 +6,5 @@
 #include "graphics/Tri3.h"
 #include "game/PlayerController.h"
 #include "game/Player.h"
+#include "game/Game.h"
+#include "game/GameSettings.h"
