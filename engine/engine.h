@@ -4,3 +4,5 @@
 #include "graphics/Camera.h"
 #include "graphics/Tri2.h"
 #include "graphics/Tri3.h"
+#include "game/PlayerController.h"
+#include "game/Player.h"
