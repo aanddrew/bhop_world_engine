@@ -18,7 +18,8 @@ int main() {
         bh::Vec3(12.0f, -2.0f, 12.0f)
     };
 
-    bh::Camera cam;
+    bh::Player player;
+    bh::PlayerController pc(&player);
 
     bh::Mat3 rotation = bh::Mat3::rotation_around_y(0.000001);
 
@@ -27,6 +28,7 @@ int main() {
     deltaClock.restart();
     while(window.isOpen()) {
         dt = deltaClock.restart();
+        //std::cout << "fps: " << 1.0/dt.asSeconds() << std::endl;
         bh::Mat4 translation = bh::Mat4::translate(0.7*dt.asSeconds(), 0, 0);
 
         sf::Event event;
@@ -35,42 +37,28 @@ int main() {
                 window.close();
             }
             if (event.type == sf::Event::KeyPressed) {
-				switch(event.key.code)
-				{
-					case sf::Keyboard::Key::Right:
-				        cam.rotate(0, 0.1);
-					break;
-                    case sf::Keyboard::Key::Left:
-				        cam.rotate(0, -0.1);
-					break;
-                    case sf::Keyboard::Key::Up:
-				        cam.rotate(0.1, 0);
-					break;
-                    case sf::Keyboard::Key::Down:
-				        cam.rotate(-0.1, 0);
-					break;
-                    case sf::Keyboard::Key::W:
-                        cam.move_location(cam.get_forward() * 0.1);
-                    break;
-                    case sf::Keyboard::Key::A:
-                        cam.move_location(cam.get_right() * -0.1);
-                    break;
-                    case sf::Keyboard::Key::S:
-                        cam.move_location(cam.get_forward() * -0.1);
-                    break;
-                    case sf::Keyboard::Key::D:
-                        cam.move_location(cam.get_right() * 0.1);
-                    break;
-                }
+                pc.KeyDown(event.key.code);
+            }
+            if (event.type == sf::Event::KeyReleased) {
+                pc.KeyUp(event.key.code);
             }
         }
+
+        pc.update(dt.asSeconds());
+
+        float dx = sf::Mouse::getPosition(window).x - window.getView().getSize().x/2;
+        float dy = sf::Mouse::getPosition(window).y - window.getView().getSize().y/2;
+        pc.MouseInput(dy * -0.01, dx * 0.01);
+        sf::Mouse::setPosition(sf::Vector2i(window.getView().getSize().x/2,window.getView().getSize().y/2), window);
+        //hide that mouse cursor
+        window.setMouseCursorVisible(false);
         
         //weird_triangle.c.z += 0.001;
         //weird_triangle.apply_transform(rotation);
         //weird_triangle.apply_transform(translation);
         //cam.rotate(0.000001, -0.000001);
         bh::Tri2 projections[3];
-        int num_triangles = bh::Camera::project_triangle(cam, weird_triangle, projections);
+        int num_triangles = bh::Camera::project_triangle(player.get_camera(), weird_triangle, projections);
 
         window.clear();
         for(int i = 0; i < num_triangles; i++) {
