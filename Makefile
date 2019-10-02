@@ -10,6 +10,7 @@ OBJS=obj/*.o
 bhop_world: main.o
 	+$(MAKE) -C engine/graphics
 	+$(MAKE) -C engine/math
+	+$(MAKE) -C engine/game
 	$(CXX) -o bhop_world $(OBJS) $(LFLAGS)
 
 .PHONY : clean
