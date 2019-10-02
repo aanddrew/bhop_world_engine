@@ -144,6 +144,13 @@ void Camera::rotate(float d_pitch, float d_yaw) {
     pitch -= d_pitch;
     yaw += d_yaw;
 
+    if (pitch >= M_PI/2- 0.01) {
+        pitch = M_PI/2 - 0.01;
+    }
+    else if (pitch <= -1*M_PI/2 + 0.01) {
+        pitch = -1*M_PI/2 + 0.01;
+    }
+
     set_rotation(pitch, yaw);
 }
 
