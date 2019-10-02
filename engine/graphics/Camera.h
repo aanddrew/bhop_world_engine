@@ -12,7 +12,7 @@ namespace bh {
 class Camera {
 public:
     Camera();
-    Camera(const Vec3& location);
+    Camera(const Vec3& location_in);
 
     const Vec3& get_forward() const;
     const Vec3& get_right() const;

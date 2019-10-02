@@ -8,9 +8,13 @@
 
 namespace bh {
 
-Camera::Camera() {
-    location = {0,0,0};
+Camera::Camera() 
+: Camera({0,0,0})
+{}
 
+Camera::Camera(const Vec3& location_in)
+: location(location_in)
+{
     forward  = {0,0,1};
     up       = {0,1,0};
     right    = {1,0,0};
