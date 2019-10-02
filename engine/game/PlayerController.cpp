@@ -2,6 +2,9 @@
 
 #include <iostream>
 
+#include "Game.h"
+#include "GameSettings.h"
+
 namespace bh {
     
 PlayerController::PlayerController(Player* player_in) 
@@ -13,36 +16,32 @@ PlayerController::PlayerController(Player* player_in)
 }
 
 void PlayerController::KeyDown(sf::Keyboard::Key key) {
-    switch(key) {
-        case sf::Keyboard::Key::W:
-            moving[FORWARD] = true;
-            break;
-        case sf::Keyboard::Key::A:
-            moving[LEFT] = true;
-            break;
-        case sf::Keyboard::Key::S:
-            moving[BACKWARD] = true;
-            break;
-        case sf::Keyboard::Key::D:
-            moving[RIGHT] = true;
-            break;
+    if (key == Game::get_settings().forward_key){
+        moving[FORWARD] = true;
+    }
+    else if (key == Game::get_settings().backward_key) {
+        moving[BACKWARD] = true;
+    }
+    else if (key == Game::get_settings().left_key) {
+        moving[LEFT] = true;
+    }
+    else if(key == Game::get_settings().right_key) {
+        moving[RIGHT] = true;
     }
 }
 
 void PlayerController::KeyUp(sf::Keyboard::Key key) {
-    switch(key) {
-        case sf::Keyboard::Key::W:
-            moving[FORWARD] = false;
-            break;
-        case sf::Keyboard::Key::A:
-            moving[LEFT] = false;
-            break;
-        case sf::Keyboard::Key::S:
-            moving[BACKWARD] = false;
-            break;
-        case sf::Keyboard::Key::D:
-            moving[RIGHT] = false;
-            break;
+    if (key == Game::get_settings().forward_key){
+        moving[FORWARD] = false;
+    }
+    else if (key == Game::get_settings().backward_key) {
+        moving[BACKWARD] = false;
+    }
+    else if (key == Game::get_settings().left_key) {
+        moving[LEFT] = false;
+    }
+    else if(key == Game::get_settings().right_key) {
+        moving[RIGHT] = false;
     }
 }
 

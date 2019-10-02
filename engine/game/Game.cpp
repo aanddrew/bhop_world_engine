@@ -2,9 +2,15 @@
 
 namespace bh {
 
+GameSettings Game::settings = load_default_settings();
+
 Game::Game() 
 {
-    load_settings_from_file("config/default.cfg", this->settings);
+
+}
+
+const GameSettings& Game::get_settings() {
+    return settings;
 }
 
 }

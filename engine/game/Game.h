@@ -8,9 +8,10 @@ namespace bh {
 class Game {
 public:
     Game();
+    static const GameSettings& get_settings();
 private:
     Player player;
-    GameSettings settings;
+    static GameSettings settings;
 };
 
 }
