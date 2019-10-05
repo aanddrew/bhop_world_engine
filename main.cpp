@@ -23,14 +23,14 @@ int main() {
 
     bh::Mat3 rotation = bh::Mat3::rotation_around_y(0.000001);
 
-    bh::Map map("cube.obj");
+    bh::Map map("map.obj");
 
     sf::Time dt;
     sf::Clock deltaClock;
     deltaClock.restart();
     while(window.isOpen()) {
         dt = deltaClock.restart();
-        //std::cout << "fps: " << 1.0/dt.asSeconds() << std::endl;
+        std::cout << "fps: " << 1.0/dt.asSeconds() << std::endl;
         bh::Mat4 translation = bh::Mat4::translate(0.7*dt.asSeconds(), 0, 0);
 
         sf::Event event;
