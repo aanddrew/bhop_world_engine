@@ -55,7 +55,7 @@ Map::Map(const std::string& file_name) {
         }
     }
 
-    for(int i = 0; i < temp_face_indeces.size() - 3; i+=3) {
+    for(int i = 0; i < temp_face_indeces.size(); i+=3) {
         triangles.push_back(
             Tri3(
                 temp_vertices.at(temp_face_indeces.at(i)),
