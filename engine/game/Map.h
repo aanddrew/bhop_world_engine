@@ -5,6 +5,7 @@
 #include <string>
 #include "../graphics/Tri3.h"
 #include "../graphics/Camera.h"
+#include "Bsp.h"
 
 namespace bh {
     
@@ -15,6 +16,7 @@ public:
     void draw(const Camera& camera, sf::RenderWindow& window) const;
 private:
     std::vector<Tri3> triangles;
+    Bsp bsp;
 };
 
 }
