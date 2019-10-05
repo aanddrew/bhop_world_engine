@@ -17,7 +17,7 @@ int main() {
 
     bh::Mat3 rotation = bh::Mat3::rotation_around_y(0.000001);
 
-    bh::Map map("cube.obj");
+    bh::Map map("maps/intersect.obj");
 
     sf::Time dt;
     sf::Clock deltaClock;
