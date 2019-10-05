@@ -4,6 +4,8 @@
 #include "../math/Mat3.h"
 #include "../math/Mat4.h"
 
+#include <SFML/Graphics.hpp>
+
 namespace bh {
 
 class Tri3 {
@@ -24,8 +26,8 @@ public:
         return os;
     }
 
-
     Vec3 a, b, c;
+    sf::Color color;
 private:
 };
 

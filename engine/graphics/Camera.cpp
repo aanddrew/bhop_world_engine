@@ -100,6 +100,7 @@ Camera::NumTrianglesGenerated Camera::project_triangle(const Camera& cam, const 
                 project_point(cam, splits[i].c, &c);
                 
                 filled[num_triangles_generated] = Tri2(a, b, c);
+                filled[num_triangles_generated].color = in.color;
                 num_triangles_generated++;
             }
         }
@@ -113,6 +114,7 @@ Camera::NumTrianglesGenerated Camera::project_triangle(const Camera& cam, const 
         project_point(cam, in.c, &c);
 
         filled[0] = Tri2(a, b, c);
+        filled[0].color = in.color;
         return NumTrianglesGenerated::One;
     }
 }

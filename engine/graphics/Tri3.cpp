@@ -10,6 +10,7 @@ Tri3::Tri3(Vec3 a, Vec3 b, Vec3 c) {
     this->a = a;
     this->b = b;
     this->c = c;
+    this->color = sf::Color(rand() % 255, rand() % 255, rand() % 255);
 }
 
 void Tri3::apply_transform(Mat3 transform) {

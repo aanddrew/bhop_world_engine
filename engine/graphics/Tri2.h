@@ -11,6 +11,7 @@ public:
     Tri2();
     Tri2(Vec2 a, Vec2 b, Vec2 c);
 
+    void set_color(const sf::Color& color);
     static void draw_to_screen(const Tri2& triangle, sf::RenderWindow& window);
 
     friend std::ostream& operator<<(std::ostream& os, const Tri2& tri){
@@ -22,6 +23,7 @@ public:
     }
 
     Vec2 a, b, c;
+    sf::Color color;
 private:
 };
 
