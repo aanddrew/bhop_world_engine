@@ -11,6 +11,18 @@ Tri3::Tri3(Vec3 a, Vec3 b, Vec3 c) {
     this->b = b;
     this->c = c;
     this->color = sf::Color(rand() % 255, rand() % 255, rand() % 255);
+
+    Vec3 ab = b - a;
+    Vec3 ac = c - a;
+    this->normal = Vec3::cross(ab, ac).normalize();
+}
+
+Tri3::Tri3(Vec3 a, Vec3 b, Vec3 c, Vec3 n) {
+    this->a = a;
+    this->b = b;
+    this->c = c;
+    this->color = sf::Color(rand() % 255, rand() % 255, rand() % 255);
+    this->normal = n;
 }
 
 void Tri3::apply_transform(Mat3 transform) {
@@ -100,6 +112,41 @@ void Tri3::split_by_plane(Vec3 plane_loc, Vec3 plane_dir, Tri3* returned) const 
         returned[1] = tri_2;
         returned[2] = tri_3;
     }
+}
+
+Tri3::IN_FRONT_OF_PLANE Tri3::in_front_of_plane(const Vec3& plane_loc, const Vec3& plane_dir) const {
+    Vec3 la = a - plane_loc;
+    Vec3 lb = b - plane_loc;
+    Vec3 lc = c - plane_loc;
+    
+    float dot_a = Vec3::dot(plane_dir, la);
+    float dot_b = Vec3::dot(plane_dir, lb);
+    float dot_c = Vec3::dot(plane_dir, lc);
+    
+    if (dot_a >= 0 && dot_b >= 0 && dot_c >= 0) {
+        return IN_FRONT_OF_PLANE::front;
+    }
+    else if (dot_a <= 0 && dot_b <= 0 && dot_c <= 0) {
+        return IN_FRONT_OF_PLANE::back;
+    }
+    else {
+        return IN_FRONT_OF_PLANE::split;
+    }
+}
+
+Tri3::IN_FRONT_OF_PLANE Tri3::center_in_front_of_plane(const Vec3& plane_loc, const Vec3& plane_dir) const {
+    Vec3 center = (a + b + c) /3;
+    Vec3 loc_center = center - plane_loc;
+    if (Vec3::dot(loc_center, plane_dir) > 0){
+        return IN_FRONT_OF_PLANE::front;
+    }
+    else {
+        return IN_FRONT_OF_PLANE::back;
+    }
+}
+
+Vec3 Tri3::get_normal() const {
+    return normal;
 }
 
 }
