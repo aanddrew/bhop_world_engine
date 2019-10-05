@@ -32,13 +32,14 @@ void Tri2::draw_to_screen(const Tri2& triangle, sf::RenderWindow& window)
 
     unsigned int half_width = window.getSize().x / 2;
     unsigned int half_height= window.getSize().y / 2;
+    float aspect_ratio = half_width * 1.0 / half_height * 1.0;
 
     //std::cout << "width: " << half_width << std::endl;
     //std::cout << "height: " << half_height << std::endl;
 
-    a.x *= half_width;
-    b.x *= half_width;
-    c.x *= half_width;
+    a.x *= half_width / aspect_ratio;
+    b.x *= half_width / aspect_ratio;
+    c.x *= half_width / aspect_ratio;
 
     a.y *= (half_height * -1.0f);
     b.y *= (half_height * -1.0f);
