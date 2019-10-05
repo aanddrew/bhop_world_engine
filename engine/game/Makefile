@@ -2,4 +2,4 @@ DEPS=*.h
 ../../obj/%.o: %.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
-all: ../../obj/Player.o ../../obj/PlayerController.o ../../obj/Game.o ../../obj/GameSettings.o ../../obj/Map.o
+all: ../../obj/Player.o ../../obj/PlayerController.o ../../obj/Game.o ../../obj/GameSettings.o ../../obj/Map.o ../../obj/Bsp.o
