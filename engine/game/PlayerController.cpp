@@ -66,7 +66,7 @@ void PlayerController::update(float dt) {
 
     //now normalize it to the x/z plane
     //player->accelerate(wishdir, dt);
-    player->set_velocity(wishdir * 0.001);
+    player->set_velocity(wishdir * dt * 5);
     player->update(dt);
 }
 
