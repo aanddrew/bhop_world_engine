@@ -66,9 +66,10 @@ Map::Map(const std::string& file_name) {
             std::string filled[4];
             split(line, filled, ' ', 4);
             for(int i = 1; i < 4; i++) {
-                int slash_index = filled[i].find('/');
-                std::string vertex_string = filled[i].substr(0, slash_index);
-                std::string normal_string = filled[i].substr(slash_index + 2);
+                std::string filled_mini[3];
+                split(filled[i], filled_mini, '/', 3);
+                std::string vertex_string = filled_mini[0];
+                std::string normal_string = filled_mini[2];
                 temp_vertex_indeces.push_back(std::stoi(vertex_string) - 1);
                 temp_normal_indeces.push_back(std::stoi(normal_string) - 1);
             }
