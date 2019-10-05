@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800,600), "bhop_world", sf::Style::Titlebar);
+    sf::RenderWindow window(sf::VideoMode(1280,720), "bhop_world", sf::Style::Titlebar);
     window.setPosition(sf::Vector2i(400, 150));
 
     bh::Tri2 triangle(
@@ -22,6 +22,8 @@ int main() {
     bh::PlayerController pc(&player);
 
     bh::Mat3 rotation = bh::Mat3::rotation_around_y(0.000001);
+
+    bh::Map map("cube.obj");
 
     sf::Time dt;
     sf::Clock deltaClock;
@@ -48,23 +50,23 @@ int main() {
 
         float dx = sf::Mouse::getPosition(window).x - window.getView().getSize().x/2;
         float dy = sf::Mouse::getPosition(window).y - window.getView().getSize().y/2;
-        pc.MouseInput(dy * -0.01, dx * 0.01);
-        sf::Mouse::setPosition(sf::Vector2i(window.getView().getSize().x/2,window.getView().getSize().y/2), window);
+        pc.MouseInput(dy * -0.005, dx * 0.005);
+        if (dx != 0 || dy  != 0)
+            sf::Mouse::setPosition(sf::Vector2i(window.getView().getSize().x/2,window.getView().getSize().y/2), window);
         //hide that mouse cursor
         window.setMouseCursorVisible(false);
         
         //weird_triangle.c.z += 0.001;
         //weird_triangle.apply_transform(rotation);
-        //weird_triangle.apply_transform(translation);
-        //cam.rotate(0.000001, -0.000001);
-        bh::Tri2 projections[3];
-        int num_triangles = bh::Camera::project_triangle(player.get_camera(), weird_triangle, projections);
-
-        window.clear();
-        for(int i = 0; i < num_triangles; i++) {
-            bh::Tri2::draw_to_screen(projections[i], window);
-        }
-        window.display();
-    }
-	return 0;
+        //weird_triangle.apply_transform(translation); //cam.rotate(0.000001, -0.000001); 
+        bh::Tri2 projections[3]; 
+        int num_triangles = bh::Camera::project_triangle(player.get_camera(), weird_triangle, projections); 
+        window.clear(); 
+        for(int i = 0; i < num_triangles; i++) { 
+            bh::Tri2::draw_to_screen(projections[i], window); 
+        } 
+        map.draw(player.get_camera(), window);
+        window.display(); 
+    } 
+    return 0; 
 }
