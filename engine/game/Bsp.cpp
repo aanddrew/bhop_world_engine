@@ -1,4 +1,5 @@
 #include "Bsp.h"
+#include "../math/Utils.h"
 
 #include <iostream>
 
@@ -80,9 +81,16 @@ void render_single_triangle(const Camera& camera, sf::RenderWindow& window, cons
 void render_bsp_helper(const Camera& camera, sf::RenderWindow& window, const std::unique_ptr<node>& our_node) {
     if (our_node == nullptr)
         return;
-    render_bsp_helper(camera, window, our_node->front);
-    render_single_triangle(camera, window, our_node->triangle);
-    render_bsp_helper(camera, window, our_node->back);
+    if (point_behind_plane(our_node->triangle.a, our_node->triangle.get_normal(), camera.get_location())) {
+        render_bsp_helper(camera, window, our_node->front);
+        render_single_triangle(camera, window, our_node->triangle);
+        render_bsp_helper(camera, window, our_node->back);
+    }
+    else {
+        render_bsp_helper(camera, window, our_node->back);
+        render_single_triangle(camera, window, our_node->triangle);
+        render_bsp_helper(camera, window, our_node->front);
+    }
 }
 
 void Bsp::draw_bsp(const Camera& camera, sf::RenderWindow& window) const {
