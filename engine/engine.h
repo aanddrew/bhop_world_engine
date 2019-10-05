@@ -8,3 +8,4 @@
 #include "game/Player.h"
 #include "game/Game.h"
 #include "game/GameSettings.h"
+#include "game/Map.h"
