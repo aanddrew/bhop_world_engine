@@ -13,6 +13,8 @@ PlayerController::PlayerController(Player* player_in)
     for(int i = 0; i < NUM_MOVE_FLAGS; i++) {
         moving[i] = false;
     }
+    movement_mode = NOCLIP;
+    noclip_speed = 20.0f;
 }
 
 void PlayerController::KeyDown(sf::Keyboard::Key key) {
@@ -50,24 +52,41 @@ void PlayerController::MouseInput(float dx, float dy) {
 }
 
 void PlayerController::update(float dt) {
-    Vec3 wishdir(0,0,0);
-    if (moving[RIGHT]){
-        wishdir += player->get_camera().get_right();
-    }
-    if (moving[LEFT]){
-        wishdir -= player->get_camera().get_right();
-    }
-    if (moving[FORWARD]){
-        wishdir += player->get_camera().get_forward();
-    }
-    if (moving[BACKWARD]){
-        wishdir -= player->get_camera().get_forward();
-    }
+    switch(movement_mode) {
+        case NOCLIP: {
+            Vec3 wishdir(0,0,0);
+            if (moving[RIGHT]){
+                wishdir += player->get_camera().get_right();
+            }
+            if (moving[LEFT]){
+                wishdir -= player->get_camera().get_right();
+            }
+            if (moving[FORWARD]){
+                wishdir += player->get_camera().get_forward();
+            }
+            if (moving[BACKWARD]){
+                wishdir -= player->get_camera().get_forward();
+            }
 
-    //now normalize it to the x/z plane
-    //player->accelerate(wishdir, dt);
-    player->set_velocity(wishdir * dt * 5);
-    player->update(dt);
+            //now normalize it to the x/z plane
+            //player->accelerate(wishdir, dt);
+            player->set_velocity(wishdir * dt * noclip_speed);
+            player->update(dt);
+        }
+        break;
+        case NORMAL: {
+
+        }
+        break;
+    }
+}
+
+PlayerController::MODES PlayerController::get_movement_mode() const {
+    return movement_mode;
+}
+
+void PlayerController::set_movement_mode(MODES mode) {
+    movement_mode = mode;
 }
 
 }

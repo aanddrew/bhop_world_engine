@@ -14,6 +14,14 @@ public:
     void KeyUp(sf::Keyboard::Key key);
     void MouseInput(float dx, float dy);
 
+    enum MODES {
+        NOCLIP,
+        NORMAL
+    };
+
+    MODES get_movement_mode() const;
+    void set_movement_mode(MODES mode);
+
     void update(float dt);
 private:
     Player* player;
@@ -26,6 +34,10 @@ private:
         JUMP,
         NUM_MOVE_FLAGS
     };
+
+    float noclip_speed;
+
+    MODES movement_mode;
 
     bool moving[5];
 };
