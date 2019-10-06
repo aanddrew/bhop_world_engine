@@ -91,13 +91,6 @@ Map::Map(const std::string& file_name) {
 }
 
 void Map::draw(const Camera& camera, sf::RenderWindow& window) const {
-    //static bh::Tri2 projections[3];
-    //for(auto& triangle : triangles) {
-        //int num_triangles = bh::Camera::project_triangle(camera, triangle, projections);
-        //for(int i = 0; i < num_triangles; i++) {
-            //bh::Tri2::draw_to_screen(projections[i], window);
-        //}
-    //}
     bsp.draw_bsp(camera, window);
 }
 
