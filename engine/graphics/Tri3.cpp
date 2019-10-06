@@ -112,6 +112,9 @@ void Tri3::split_by_plane(Vec3 plane_loc, Vec3 plane_dir, Tri3* returned) const 
         returned[1] = tri_2;
         returned[2] = tri_3;
     }
+    for(int i = 0; i < 3; i++) {
+        returned[i].color = this->color;
+    }
 }
 
 Tri3::IN_FRONT_OF_PLANE Tri3::in_front_of_plane(const Vec3& plane_loc, const Vec3& plane_dir) const {
