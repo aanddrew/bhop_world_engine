@@ -126,10 +126,10 @@ Tri3::IN_FRONT_OF_PLANE Tri3::in_front_of_plane(const Vec3& plane_loc, const Vec
     float dot_b = Vec3::dot(plane_dir, lb);
     float dot_c = Vec3::dot(plane_dir, lc);
     
-    if (dot_a >= 0 && dot_b >= 0 && dot_c >= 0) {
+    if (dot_a >= -0.01 && dot_b >= -0.01 && dot_c >= -0.01) {
         return IN_FRONT_OF_PLANE::front;
     }
-    else if (dot_a <= 0 && dot_b <= 0 && dot_c <= 0) {
+    else if (dot_a <= 0.01 && dot_b <= 0.01 && dot_c <= 0.01) {
         return IN_FRONT_OF_PLANE::back;
     }
     else {
@@ -150,6 +150,21 @@ Tri3::IN_FRONT_OF_PLANE Tri3::center_in_front_of_plane(const Vec3& plane_loc, co
 
 Vec3 Tri3::get_normal() const {
     return normal;
+}
+
+bool Tri3::isnan() const {
+    for(int i = 0; i < 3; i ++) {
+        if (std::isnan(a[i]) || std::isnan(b[i]) || std::isnan(c[i]) || std::isnan(normal[i]))
+            return true;
+    }
+    return false;
+}
+
+float Tri3::get_area() const {
+    Vec3 ab = b - a;
+    Vec3 ac = c - a;
+    float parallelogram_area = Vec3::cross(ab, ac).magnitude();
+    return parallelogram_area/2;
 }
 
 }

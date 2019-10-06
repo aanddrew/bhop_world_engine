@@ -38,6 +38,10 @@ public:
         return os;
     }
 
+    bool isnan() const;
+
+    float get_area() const;
+
     Vec3 a, b, c;
     sf::Color color;
     Vec3 normal;
