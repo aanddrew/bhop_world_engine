@@ -65,6 +65,21 @@ std::unique_ptr<node> Bsp::build_bsp(const std::vector<Tri3>& triangles) {
         }
     }
 
+    static const float AREA_TOLERANCE = 0.001;
+
+    for(int i = 0; i < back.size(); i++) {
+        if (back.at(i).isnan() || back.at(i).get_area() < AREA_TOLERANCE) {
+            back.erase(back.begin() + i);
+            i--;
+        }
+    }
+    for(int i = 0; i < front.size(); i++) {
+         if (front.at(i).isnan() || front.at(i).get_area() < AREA_TOLERANCE) {
+            front.erase(front.begin() + i);
+            i--;
+        }   
+    }
+    
     our_node->front = build_bsp(front);
     our_node->back = build_bsp(back);
     return our_node;
