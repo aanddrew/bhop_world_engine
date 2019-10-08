@@ -25,10 +25,24 @@ void Player::accelerate(const Vec3& wishdir, float dt) {
 void Player::set_velocity(const Vec3& wishvel) {
     velocity = wishvel;
 }
+void Player::set_location(const Vec3& wishloc) {
+    camera.set_location(wishloc);
+}
 
 Camera& Player::get_camera() {
     return camera;
 }
 
+const Vec3& Player::get_location() const {
+    return camera.get_location();
+}
+
+const Vec3& Player::get_velocity() const {
+    return velocity;
+}
+
+float Player::get_radius() const {
+    return 2.0f;
+}
     
 }

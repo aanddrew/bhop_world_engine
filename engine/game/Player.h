@@ -15,8 +15,14 @@ public:
 
     void update(float dt);
 
+    const Vec3& get_location() const;
+    const Vec3& get_velocity() const;
+
     void accelerate(const Vec3& wishdir, float dt);
     void set_velocity(const Vec3& wishvel);
+    void set_location(const Vec3& wishloc);
+
+    float get_radius() const;
 private:
     Camera camera;
     Vec3 velocity;
