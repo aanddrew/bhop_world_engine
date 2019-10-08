@@ -88,10 +88,20 @@ Map::Map(const std::string& file_name) {
     }
 
     bsp = Bsp(triangles);
+
+    for (auto& triangle : triangles) {
+        phys_triangles.push_back(PhysTri3(triangle));
+    }
 }
 
 void Map::draw(const Camera& camera, sf::RenderWindow& window) const {
     bsp.draw_bsp(camera, window);
+}
+
+void Map::collide_player(Player& player, float dt) const {
+    for(auto& triangle : phys_triangles) {
+        triangle.collide_player(player, dt);
+    }
 }
 
 }
