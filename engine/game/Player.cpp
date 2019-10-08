@@ -13,8 +13,8 @@ Player::Player(const Vec3& start_location)
 }
 
 void Player::update(float dt) {
-    velocity += acceleration;
-    camera.move_location(velocity);
+    velocity += acceleration * dt;
+    camera.move_location(velocity * dt);
 }
 
 void Player::accelerate(const Vec3& wishdir, float dt) {
