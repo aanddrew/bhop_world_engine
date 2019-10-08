@@ -70,11 +70,29 @@ void PlayerController::update(float dt) {
 
             //now normalize it to the x/z plane
             //player->accelerate(wishdir, dt);
-            player->set_velocity(wishdir * dt * noclip_speed);
+            player->set_velocity(wishdir * noclip_speed);
             player->update(dt);
         }
         break;
         case NORMAL: {
+            Vec3 wishdir(0,0,0);
+            if (moving[RIGHT]){
+                wishdir += player->get_camera().get_right();
+            }
+            if (moving[LEFT]){
+                wishdir -= player->get_camera().get_right();
+            }
+            if (moving[FORWARD]){
+                wishdir += player->get_camera().get_forward();
+            }
+            if (moving[BACKWARD]){
+                wishdir -= player->get_camera().get_forward();
+            }
+
+            //now normalize it to the x/z plane
+            //player->accelerate(wishdir, dt);
+            player->set_velocity(wishdir * noclip_speed);
+            player->update(dt);
 
         }
         break;
