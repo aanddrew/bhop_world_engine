@@ -37,6 +37,12 @@ int main() {
             }
             if (event.type == sf::Event::KeyReleased) {
                 pc.KeyUp(event.key.code);
+                if (event.key.code == sf::Keyboard::Key::F) {
+                    pc.set_movement_mode((pc.get_movement_mode() == 
+                                        bh::PlayerController::MODES::NOCLIP)
+                                      ? bh::PlayerController::MODES::NORMAL
+                                      : bh::PlayerController::MODES::NOCLIP);
+                }
             }
         }
 
@@ -54,6 +60,8 @@ int main() {
         
         window.clear(); 
         map.draw(player.get_camera(), window);
+        if(pc.get_movement_mode() != bh::PlayerController::MODES::NOCLIP)
+            map.collide_player(player, dt.asSeconds());
         window.display(); 
     } 
     return 0; 
