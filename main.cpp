@@ -1,6 +1,7 @@
 #include "engine/engine.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1280,720), "bhop_world", sf::Style::Titlebar);
@@ -15,9 +16,14 @@ int main() {
     bh::Player player;
     bh::PlayerController pc(&player);
 
-    bh::Mat3 rotation = bh::Mat3::rotation_around_y(0.000001);
+    bh::GameSettings settings = bh::load_default_settings();
+    bh::Map map("maps/kino.obj", settings);
 
-    bh::Map map("maps/kino.obj");
+    sf::SoundBuffer jumpsoundbuffer;
+    jumpsoundbuffer.loadFromFile("res/hup.wav");
+
+    sf::Sound jumpsound;
+    jumpsound.setBuffer(jumpsoundbuffer);
 
     sf::Time dt;
     sf::Clock deltaClock;
@@ -42,6 +48,11 @@ int main() {
                                         bh::PlayerController::MODES::NOCLIP)
                                       ? bh::PlayerController::MODES::NORMAL
                                       : bh::PlayerController::MODES::NOCLIP);
+                }
+            }
+            if (event.type == sf::Event::MouseWheelScrolled) {
+                if (player.jump()) {
+                    jumpsound.play();
                 }
             }
         }

@@ -1,6 +1,6 @@
 export CXX=g++
 export CFLAGS=-std=c++14 -g -Wall -fsplit-stack
-export LFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
+export LFLAGS=-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 OBJS=obj/*.o
 
