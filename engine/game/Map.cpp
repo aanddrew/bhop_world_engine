@@ -20,7 +20,9 @@ void split(const std::string& temp, std::string filled[], char del, int max_word
     }
 }
     
-Map::Map(const std::string& file_name) {
+Map::Map(const std::string& file_name, const GameSettings& settings) 
+{
+    this->settings = &settings;
     //read in an obj file, and populate the array of triangles
     std::ifstream in_file(file_name);
 
@@ -102,6 +104,15 @@ void Map::collide_player(Player& player, float dt) const {
     for(auto& triangle : phys_triangles) {
         triangle.collide_player(player, dt);
     }
+}
+
+void Map::interact_player(Player& player, float dt) const {
+    apply_gravity_player(player, dt);
+    collide_player(player, dt);
+}
+
+void Map::apply_gravity_player(Player& player, float dt) const {
+    player.set_velocity(player.get_velocity() + Vec3(0, -1*settings->gravity, 0) * dt);
 }
 
 }
