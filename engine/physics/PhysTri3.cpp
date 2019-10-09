@@ -39,17 +39,19 @@ bool PhysTri3::collide_player(Player& player, float dt) const {
     float dist_to_bc = Vec3::dot(norm_bc, bl);
     float dist_to_ac = Vec3::dot(norm_ac, cl);
     float dist_to_plane = Vec3::dot(normal, al);
-    if (dist_to_plane < player.get_radius()
+    if (dist_to_plane < player.get_radius() 
         && dist_to_plane > 0
         && dist_to_ab > 0
         && dist_to_bc > 0
-        && dist_to_ac > 0){
+        && dist_to_ac > 0) {
         //correct collision
         float dr = player.get_radius() - dist_to_plane;
-        player.set_velocity(player.get_velocity() + normal * Vec3::dot(player.get_velocity(), normal));
+        player.set_velocity(player.get_velocity() - normal * Vec3::dot(player.get_velocity(), normal));
+        if (this->is_floor()) {
+            player.set_velocity(player.get_velocity() * 0.99);
+            player.set_airborne(false);
+        }
         player.set_location(next_location + normal * dr);
-        if (this->is_floor())
-            player.set_velocity(player.get_velocity() * 0.9);
         return true;
     }
     return false;
