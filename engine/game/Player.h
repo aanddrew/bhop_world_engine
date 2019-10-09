@@ -22,13 +22,18 @@ public:
     void set_velocity(const Vec3& wishvel);
     void set_location(const Vec3& wishloc);
 
+    bool is_airborne() const;
+    void set_airborne(bool new_air);
+
+    bool jump();
+
     float get_radius() const;
 private:
     Camera camera;
     Vec3 velocity;
     Vec3 acceleration;
 
-    bool is_airborne;
+    bool airborne;
 };
 
 }

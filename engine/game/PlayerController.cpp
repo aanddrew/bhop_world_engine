@@ -14,7 +14,7 @@ PlayerController::PlayerController(Player* player_in)
         moving[i] = false;
     }
     movement_mode = NOCLIP;
-    noclip_speed = 20.0f;
+    noclip_speed = 50.0f;
 }
 
 void PlayerController::KeyDown(sf::Keyboard::Key key) {
@@ -44,6 +44,9 @@ void PlayerController::KeyUp(sf::Keyboard::Key key) {
     }
     else if(key == Game::get_settings().right_key) {
         moving[RIGHT] = false;
+    }
+    else if(key == sf::Keyboard::Key::Space) {
+        player->jump();
     }
 }
 
@@ -88,10 +91,10 @@ void PlayerController::update(float dt) {
             if (moving[BACKWARD]){
                 wishdir -= player->get_camera().get_forward();
             }
-
+    
+            Vec3 wishdir_xz(wishdir.x, 0, wishdir.z);
             //now normalize it to the x/z plane
-            //player->accelerate(wishdir, dt);
-            player->set_velocity(wishdir * noclip_speed);
+            player->accelerate(wishdir_xz.normalize(), dt);
             player->update(dt);
 
         }

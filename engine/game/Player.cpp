@@ -1,5 +1,7 @@
 #include "Player.h"
 
+#include <iostream>
+
 namespace bh {
 
 Player::Player() 
@@ -9,7 +11,7 @@ Player::Player()
 Player::Player(const Vec3& start_location)
 : camera(start_location)
 {
-    is_airborne = false;
+    airborne = false;
 }
 
 void Player::update(float dt) {
@@ -18,8 +20,13 @@ void Player::update(float dt) {
 }
 
 void Player::accelerate(const Vec3& wishdir, float dt) {
-    static const float MOVE_SPEED = 0.003;
-    velocity += wishdir * dt * MOVE_SPEED;
+    static const float MOVE_SPEED = 50;
+    static const float MAX_FORWARD_SPEED = 40;
+    float forward_speed = Vec3::dot(velocity, wishdir);
+    float addspeed = MAX_FORWARD_SPEED - forward_speed;
+    
+    velocity += wishdir * dt * addspeed;
+    std::cout << velocity.magnitude() << std::endl;
 }
 
 void Player::set_velocity(const Vec3& wishvel) {
@@ -43,6 +50,23 @@ const Vec3& Player::get_velocity() const {
 
 float Player::get_radius() const {
     return 2.0f;
+}
+
+bool Player::is_airborne() const {
+    return airborne;
+}
+
+void Player::set_airborne(bool new_air) {
+    airborne = new_air;
+}
+
+bool Player::jump() {
+    if(!airborne) {
+        set_airborne(true);
+        velocity += Vec3(0, 7, 0);
+        return true;
+    }
+    return false;
 }
     
 }
