@@ -83,7 +83,10 @@ float Vec2::magnitude_squared() {
 }
 
 Vec2 Vec2::normalize() {
-    return *this / magnitude();
+    float mag = magnitude();
+    if(mag == 0)
+        return *this;
+    return *this / mag;
 }
 
 float Vec2::dot(const Vec2& first, const Vec2& second) {

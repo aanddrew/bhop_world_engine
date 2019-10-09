@@ -93,7 +93,10 @@ float Vec3::magnitude_squared() {
 }
 
 Vec3 Vec3::normalize() {
-    return *this / magnitude();
+    float mag = magnitude();
+    if(mag == 0)
+        return *this;
+    return *this / mag;
 }
 
 float Vec3::dot(const Vec3& first, const Vec3& second) {
