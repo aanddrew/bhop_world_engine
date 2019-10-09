@@ -21,6 +21,9 @@ PhysTri3::PhysTri3(Vec3 a, Vec3 b, Vec3 c, Vec3 n)
     norm_ac = (Vec3::dot(norm_ac_hypothetical, (center_of_triangle - a)) > 0) 
             ? norm_ac_hypothetical 
             : norm_ac_hypothetical * -1;
+
+    static const float ONE_OVER_SQUARE_ROOT_TWO = 0.70711;
+    i_am_a_floor = (Vec3::dot(normal, Vec3(0,1,0)) > ONE_OVER_SQUARE_ROOT_TWO);
 }
 
 PhysTri3::PhysTri3(const Tri3& triangle)
@@ -29,9 +32,9 @@ PhysTri3::PhysTri3(const Tri3& triangle)
 
 bool PhysTri3::collide_player(Player& player, float dt) const {
     Vec3 next_location = player.get_location() + player.get_velocity() * dt;
-    Vec3 al = player.get_location() - a;
-    Vec3 bl = player.get_location() - b;
-    Vec3 cl = player.get_location() - c;
+    Vec3 al = next_location - a;
+    Vec3 bl = next_location - b;
+    Vec3 cl = next_location - c;
     float dist_to_ab = Vec3::dot(norm_ab, al);
     float dist_to_bc = Vec3::dot(norm_bc, bl);
     float dist_to_ac = Vec3::dot(norm_ac, cl);
@@ -44,10 +47,16 @@ bool PhysTri3::collide_player(Player& player, float dt) const {
         //correct collision
         float dr = player.get_radius() - dist_to_plane;
         player.set_velocity(player.get_velocity() + normal * Vec3::dot(player.get_velocity(), normal));
-        player.set_location(player.get_location() + normal * dr);
+        player.set_location(next_location + normal * dr);
+        if (this->is_floor())
+            player.set_velocity(player.get_velocity() * 0.9);
         return true;
     }
     return false;
+}
+
+bool PhysTri3::is_floor() const {
+    return i_am_a_floor;
 }
 
 }

@@ -13,8 +13,10 @@ public:
 
     //bool is_sphere_colliding(const Vec3& location, float radius) const;
     bool collide_player(Player& player, float dt) const;
+    bool is_floor() const;
 private:
     Vec3 norm_ab, norm_bc, norm_ac;
+    bool i_am_a_floor;
 };
     
 }
