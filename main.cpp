@@ -68,11 +68,13 @@ int main() {
         window.setMouseCursorVisible(false);
 
         //std::cout << player.get_camera().get_location() << std::endl;
+        //std::cout << (pc.get_movement_mode() == bh::PlayerController::MODES::NOCLIP) << std::endl;
         
         window.clear(); 
         map.draw(player.get_camera(), window);
-        if(pc.get_movement_mode() != bh::PlayerController::MODES::NOCLIP)
-            map.collide_player(player, dt.asSeconds());
+        if(pc.get_movement_mode() != bh::PlayerController::MODES::NOCLIP) {
+            map.interact_player(player, dt.asSeconds());
+        }
         window.display(); 
     } 
     return 0; 
