@@ -25,6 +25,9 @@ public:
     bool is_airborne() const;
     void set_airborne(bool new_air);
 
+    float get_move_speed() const;
+    void set_move_speed(float new_speed);
+
     bool jump();
 
     float get_radius() const;
@@ -32,6 +35,11 @@ private:
     Camera camera;
     Vec3 velocity;
     Vec3 acceleration;
+
+    void ground_accelerate(const Vec3& wishdir, float dt);
+    void air_accelerate(const Vec3& wishdir, float dt);
+
+    float move_speed;
 
     bool airborne;
 };

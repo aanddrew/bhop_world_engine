@@ -12,6 +12,7 @@ Player::Player(const Vec3& start_location)
 : camera(start_location)
 {
     airborne = false;
+    move_speed = 50.0f;
 }
 
 void Player::update(float dt) {
@@ -20,12 +21,13 @@ void Player::update(float dt) {
 }
 
 void Player::accelerate(const Vec3& wishdir, float dt) {
-    static const float MOVE_SPEED = 50;
-    static const float MAX_FORWARD_SPEED = 40;
-    float forward_speed = Vec3::dot(velocity, wishdir);
-    float addspeed = MAX_FORWARD_SPEED - forward_speed;
-    
-    velocity += wishdir * dt * addspeed;
+    if (airborne) {
+        air_accelerate(wishdir, dt);
+    }
+    else {
+        ground_accelerate(wishdir, dt);
+    }
+        
     std::cout << velocity.magnitude() << std::endl;
 }
 
@@ -67,6 +69,34 @@ bool Player::jump() {
         return true;
     }
     return false;
+}
+
+float Player::get_move_speed() const {
+    return move_speed;
+}
+
+void Player::set_move_speed(float new_speed) {
+    move_speed = new_speed;
+}
+
+void Player::ground_accelerate(const Vec3& wishdir, float dt) {
+    velocity += wishdir * move_speed * dt;
+    float mag_velocity = velocity.magnitude();
+    if (mag_velocity > move_speed) {
+        mag_velocity *= move_speed/mag_velocity;
+    }
+}
+
+void Player::air_accelerate(const Vec3& wishdir, float dt) {
+    Vec3 flat_velocity(velocity.x, 0, velocity.y);
+    Vec3 norm_velocity = flat_velocity.normalize();
+    float angle_cos = Vec3::cross(norm_velocity, wishdir).magnitude_squared();
+    float angle_sin = Vec3::dot(norm_velocity, wishdir);
+    if (angle_sin < 0) {
+    }
+    angle_cos *= 8;
+    float SCALE = 2.0f;
+    velocity += wishdir * angle_cos * move_speed * SCALE * dt;
 }
     
 }
