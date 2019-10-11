@@ -17,7 +17,7 @@ int main() {
     bh::PlayerController pc(&player);
 
     bh::GameSettings settings = bh::load_default_settings();
-    bh::Map map("maps/kino.obj", settings);
+    bh::Map map("maps/loop.obj", settings);
 
     sf::SoundBuffer jumpsoundbuffer;
     jumpsoundbuffer.loadFromFile("res/hup.wav");
@@ -48,11 +48,12 @@ int main() {
                                         bh::PlayerController::MODES::NOCLIP)
                                       ? bh::PlayerController::MODES::NORMAL
                                       : bh::PlayerController::MODES::NOCLIP);
+                    player.set_airborne(true);
                 }
             }
             if (event.type == sf::Event::MouseWheelScrolled) {
                 if (player.jump()) {
-                    jumpsound.play();
+                    //jumpsound.play();
                 }
             }
         }
