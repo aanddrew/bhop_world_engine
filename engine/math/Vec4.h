@@ -29,9 +29,9 @@ public:
     
     float operator[](int index) const;
 
-    float magnitude();
-    float magnitude_squared();
-    Vec4  normalize();
+    float magnitude() const;
+    float magnitude_squared() const;
+    Vec4  normalize() const;
 
     static float dot(const Vec4& first, const Vec4& second);
 

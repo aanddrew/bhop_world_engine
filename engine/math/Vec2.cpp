@@ -74,15 +74,15 @@ float Vec2::operator[](int index) const {
     throw std::invalid_argument("Vector index out of bounds");
 }
 
-float Vec2::magnitude() {
+float Vec2::magnitude() const {
     return sqrt(magnitude_squared());
 }
 
-float Vec2::magnitude_squared() {
+float Vec2::magnitude_squared() const {
     return dot(*this, *this);
 }
 
-Vec2 Vec2::normalize() {
+Vec2 Vec2::normalize() const {
     float mag = magnitude();
     if(mag == 0)
         return *this;

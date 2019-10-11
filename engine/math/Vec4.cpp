@@ -114,15 +114,15 @@ float Vec4::operator[](int index) const {
     throw std::invalid_argument("Vector index out of bounds");
 }
 
-float Vec4::magnitude() {
+float Vec4::magnitude() const {
     return sqrt(magnitude_squared());
 }
 
-float Vec4::magnitude_squared() {
+float Vec4::magnitude_squared() const {
     return dot(*this, *this);
 }
 
-Vec4 Vec4::normalize() {
+Vec4 Vec4::normalize() const {
     float mag = magnitude();
     if(mag == 0)
         return *this;
