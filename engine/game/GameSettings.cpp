@@ -18,7 +18,7 @@ GameSettings load_default_settings() {
         0.01,
         0.01,
         0.01,
-        12,
+        15,
         sf::Keyboard::Key::W,
         sf::Keyboard::Key::S,
         sf::Keyboard::Key::D,
