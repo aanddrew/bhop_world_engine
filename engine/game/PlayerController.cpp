@@ -30,6 +30,9 @@ void PlayerController::KeyDown(sf::Keyboard::Key key) {
     else if(key == Game::get_settings().right_key) {
         moving[RIGHT] = true;
     }
+    else if (key == Game::get_settings().jump_key) {
+        moving[JUMP] = true;
+    }
 }
 
 void PlayerController::KeyUp(sf::Keyboard::Key key) {
@@ -45,8 +48,8 @@ void PlayerController::KeyUp(sf::Keyboard::Key key) {
     else if(key == Game::get_settings().right_key) {
         moving[RIGHT] = false;
     }
-    else if(key == sf::Keyboard::Key::Space) {
-        player->jump();
+    else if(key == Game::get_settings().jump_key) {
+        moving[JUMP] = false;
     }
 }
 
@@ -90,6 +93,10 @@ void PlayerController::update(float dt) {
             }
             if (moving[BACKWARD]){
                 wishdir -= player->get_camera().get_forward();
+            }
+
+            if (moving[JUMP] && !player->is_airborne()) {
+                player->jump();
             }
     
             Vec3 wishdir_xz(wishdir.x, 0, wishdir.z);
