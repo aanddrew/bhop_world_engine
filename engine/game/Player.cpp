@@ -88,15 +88,24 @@ void Player::ground_accelerate(const Vec3& wishdir, float dt) {
 }
 
 void Player::air_accelerate(const Vec3& wishdir, float dt) {
-    Vec3 flat_velocity(velocity.x, 0, velocity.y);
-    Vec3 norm_velocity = flat_velocity.normalize();
-    float angle_cos = Vec3::cross(norm_velocity, wishdir).magnitude_squared();
-    float angle_sin = Vec3::dot(norm_velocity, wishdir);
-    if (angle_sin < 0) {
+    float accelerate = 100;
+    float proj_vel = Vec3::dot(velocity, wishdir);
+    float accel_vel = accelerate * dt;
+
+    float angle_cos = Vec3::dot(velocity.normalize(), wishdir);
+
+    if (proj_vel + accel_vel > move_speed) {
+        accel_vel = move_speed - proj_vel;
     }
-    angle_cos *= 8;
-    float SCALE = 2.0f;
-    velocity += wishdir * angle_cos * move_speed * SCALE * dt;
+    Vec3 add_vec;
+    if (angle_cos < 0) {
+        add_vec = wishdir * (accel_vel * (1 - angle_cos));
+    }
+    else {
+        add_vec = wishdir * accel_vel;
+    }
+    velocity += add_vec;
 }
     
 }
+
