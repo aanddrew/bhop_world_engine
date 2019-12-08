@@ -33,7 +33,7 @@ std::unique_ptr<node> Bsp::build_bsp(const std::vector<Tri3>& triangles) {
     Vec3 plane_loc = our_triangle.a;
     Vec3 plane_dir = our_triangle.get_normal();
     //filling the front and back array.
-    for(int i = 0; i < triangles.size(); i++) {
+    for(int i = 0; i < (int) triangles.size(); i++) {
         auto& triangle = triangles.at(i);
         if (i == our_triangle_index)
             continue;
@@ -69,13 +69,13 @@ std::unique_ptr<node> Bsp::build_bsp(const std::vector<Tri3>& triangles) {
     static const float AREA_TOLERANCE = 0.001;
 
     //cleaning up bad triangles from this array.
-    for(int i = 0; i < back.size(); i++) {
+    for(int i = 0; i < (int) back.size(); i++) {
         if (back.at(i).isnan() || back.at(i).get_area() < AREA_TOLERANCE) {
             back.erase(back.begin() + i);
             i--;
         }
     }
-    for(int i = 0; i < front.size(); i++) {
+    for(int i = 0; i < (int) front.size(); i++) {
          if (front.at(i).isnan() || front.at(i).get_area() < AREA_TOLERANCE) {
             front.erase(front.begin() + i);
             i--;
