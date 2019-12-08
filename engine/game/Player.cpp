@@ -88,31 +88,53 @@ void Player::set_move_speed(float new_speed) {
 }
 
 void Player::ground_accelerate(const Vec3& wishdir, float dt) {
-    velocity += wishdir * move_speed * dt;
+    float speed_now = move_speed;
+    if (walking)
+        speed_now *= 0.5;
+
+    velocity += wishdir * speed_now * 10 * dt;
     float mag_velocity = velocity.magnitude();
-    if (mag_velocity > move_speed) {
-        mag_velocity *= move_speed/mag_velocity;
+    if (mag_velocity > speed_now) {
+        velocity = velocity * (speed_now/mag_velocity);
     }
+    //apply ground friction
+    float friction = speed_now*0.5 * dt;
+    velocity = velocity - (velocity * friction);
 }
 
+//code literally copied directly from source sdk
 void Player::air_accelerate(const Vec3& wishdir, float dt) {
-    float accelerate = 100;
-    float proj_vel = Vec3::dot(velocity, wishdir);
-    float accel_vel = accelerate * dt;
+    float accel = 800;
+    float currentspeed = velocity.magnitude();
+    float addspeed = 0.1;
+    float accelspeed = 0.1;
+	float wishspd = 1;
 
-    float angle_cos = Vec3::dot(velocity.normalize(), wishdir);
+    float air_speed_cap = 70.0f;
 
-    if (proj_vel + accel_vel > move_speed) {
-        accel_vel = move_speed - proj_vel;
-    }
-    Vec3 add_vec;
-    if (angle_cos < 0) {
-        add_vec = wishdir * (accel_vel * (1 - angle_cos));
-    }
-    else {
-        add_vec = wishdir * accel_vel;
-    }
-    velocity += add_vec;
+	// Cap speed
+	if ( wishspd > air_speed_cap )
+		wishspd = air_speed_cap;
+
+	// Determine veer amount
+    currentspeed = Vec3::dot(velocity, wishdir);
+
+	// See how much to add
+	addspeed = wishspd - currentspeed;
+
+	// If not adding any, done.
+	if (addspeed <= 0)
+		return;
+
+	// Determine acceleration speed after acceleration
+	accelspeed = accel * wishspd * dt;
+
+	// Cap it
+	if (accelspeed > addspeed)
+		accelspeed = addspeed;
+	
+	// Adjust pmove vel.
+    velocity += wishdir * accelspeed;
 }
     
 }
