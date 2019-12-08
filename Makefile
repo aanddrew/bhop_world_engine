@@ -12,6 +12,7 @@ bhop_world: main.o
 	+$(MAKE) -C engine/math
 	+$(MAKE) -C engine/game
 	+$(MAKE) -C engine/physics
+	+$(MAKE) -C engine/gui
 	$(CXX) -o bhop_world $(OBJS) $(LFLAGS)
 
 .PHONY : clean

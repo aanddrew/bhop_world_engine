@@ -9,3 +9,5 @@
 #include "game/Game.h"
 #include "game/GameSettings.h"
 #include "game/Map.h"
+#include "gui/Button.h"
+#include "gui/Menu.h"
