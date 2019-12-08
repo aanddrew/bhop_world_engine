@@ -12,7 +12,7 @@ Player::Player(const Vec3& start_location)
 : camera(start_location)
 {
     airborne = false;
-    move_speed = 50.0f;
+    move_speed = 15.0f;
 }
 
 void Player::update(float dt) {
