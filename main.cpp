@@ -9,7 +9,7 @@ enum main_menu_options {
     QUIT,
 };
 
-const char *main_menu_strings[] = {"Play", "Settings", "Quit"};
+const std::string main_menu_strings[] = {"Play", "Settings", "Quit"};
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1280,720), "bhop_world", sf::Style::Titlebar);
@@ -61,13 +61,11 @@ int main() {
             }
 
             if (clicked_button != nullptr) {
-                if (clicked_button->get_string() 
-                    == std::string(main_menu_strings[PLAY])) {
+                if (clicked_button->get_string() == main_menu_strings[PLAY]) {
                     game.set_paused(false);
                     main_menu_running = false;
                 }
-                else if (clicked_button->get_string()
-                        == std::string(main_menu_strings[QUIT])) {
+                else if (clicked_button->get_string() == main_menu_strings[QUIT]) {
                     window.close();
                     return 0;
                 }
