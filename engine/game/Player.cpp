@@ -62,6 +62,14 @@ void Player::set_airborne(bool new_air) {
     airborne = new_air;
 }
 
+bool Player::is_walking() const {
+    return walking;
+}
+
+void Player::set_walking(bool new_walk) {
+    walking = new_walk;
+}
+
 bool Player::jump() {
     if(!airborne) {
         set_airborne(true);

@@ -24,6 +24,7 @@ GameSettings load_default_settings() {
         sf::Keyboard::Key::D,
         sf::Keyboard::Key::A,
         sf::Keyboard::Key::Space,
+        sf::Keyboard::Key::LShift,
     };
 }
 

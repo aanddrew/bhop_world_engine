@@ -25,6 +25,9 @@ public:
     bool is_airborne() const;
     void set_airborne(bool new_air);
 
+    bool is_walking() const;
+    void set_walking(bool new_walk);
+
     float get_move_speed() const;
     void set_move_speed(float new_speed);
 
@@ -42,6 +45,7 @@ private:
     float move_speed;
 
     bool airborne;
+    bool walking;
 };
 
 }

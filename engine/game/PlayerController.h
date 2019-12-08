@@ -32,6 +32,7 @@ private:
         LEFT,
         RIGHT,
         JUMP,
+        WALK,
         NUM_MOVE_FLAGS
     };
 

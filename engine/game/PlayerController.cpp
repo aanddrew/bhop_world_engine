@@ -33,6 +33,10 @@ void PlayerController::KeyDown(sf::Keyboard::Key key) {
     else if (key == Game::get_settings().jump_key) {
         moving[JUMP] = true;
     }
+    else if (key == Game::get_settings().walk_key) {
+        moving[WALK] = true;
+        player->set_walking(true);
+    }
 }
 
 void PlayerController::KeyUp(sf::Keyboard::Key key) {
@@ -50,6 +54,10 @@ void PlayerController::KeyUp(sf::Keyboard::Key key) {
     }
     else if(key == Game::get_settings().jump_key) {
         moving[JUMP] = false;
+    }
+    else if (key == Game::get_settings().walk_key) {
+        moving[WALK] = false;
+        player->set_walking(false);
     }
 }
 

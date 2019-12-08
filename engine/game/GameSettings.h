@@ -16,6 +16,7 @@ struct GameSettings {
     sf::Keyboard::Key right_key;
     sf::Keyboard::Key left_key;
     sf::Keyboard::Key jump_key;
+    sf::Keyboard::Key walk_key;
 };
 
 void load_settings_from_file(const std::string& file_name, GameSettings& settings);
