@@ -12,7 +12,16 @@ int main() {
     float dt;
     sf::Clock deltaClock;
     deltaClock.restart();
+
+    bool main_menu = true;
+
+    sf::Font menu_font;
+
     while(window.isOpen()) {
+        if (main_menu) {
+            //do main menu
+            continue;
+        }
         dt = deltaClock.restart().asSeconds();
         //std::cout << "fps: " << 1.0/dt.asSeconds() << std::endl;
         if (!game.is_paused()) {
