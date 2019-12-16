@@ -8,7 +8,7 @@ Game::Game(sf::RenderWindow& window_in)
 : window(window_in),
   player(),
   pc(&player),
-  map("maps/loop.obj", settings)
+  map("maps/starter.obj", settings)
 {
     paused = true;
 }
