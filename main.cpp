@@ -5,11 +5,12 @@
 
 enum main_menu_options {
     PLAY,
+    CHOOSE_MAP,
     SETTINGS,
     QUIT,
 };
 
-const std::string main_menu_strings[] = {"Play", "Settings", "Quit"};
+const std::string main_menu_strings[] = {"Play", "Choose Map", "Settings", "Quit"};
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1280,720), "bhop_world", sf::Style::Titlebar);
@@ -89,7 +90,8 @@ int main() {
             window.display();
         }
         else {
-            window.close();
+            main_menu_running = true;
+            //window.close();
         }
     } 
     return 0; 

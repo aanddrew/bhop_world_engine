@@ -33,6 +33,12 @@ void Game::update(float dt) {
         }
         if (event.type == sf::Event::KeyPressed) {
             pc.KeyDown(event.key.code);
+            //pausing
+            if (event.key.code == sf::Keyboard::Key::Escape) {
+                window.setMouseCursorVisible(true);
+                paused = true;
+                return;
+            }
         }
         if (event.type == sf::Event::KeyReleased) {
             pc.KeyUp(event.key.code);
