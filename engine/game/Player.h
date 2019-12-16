@@ -22,6 +22,8 @@ public:
     void set_velocity(const Vec3& wishvel);
     void set_location(const Vec3& wishloc);
 
+    void bleed_speed(float fraction);
+
     bool is_airborne() const;
     void set_airborne(bool new_air);
 

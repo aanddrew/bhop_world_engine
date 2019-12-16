@@ -12,7 +12,7 @@ Player::Player(const Vec3& start_location)
 : camera(start_location)
 {
     airborne = false;
-    move_speed = 15.0f;
+    move_speed = 13.0f;
 }
 
 void Player::update(float dt) {
@@ -73,7 +73,7 @@ void Player::set_walking(bool new_walk) {
 bool Player::jump() {
     if(!airborne) {
         set_airborne(true);
-        velocity += Vec3(0, 7, 0);
+        velocity += Vec3(0, 15, 0);
         return true;
     }
     return false;
@@ -93,9 +93,11 @@ void Player::ground_accelerate(const Vec3& wishdir, float dt) {
         speed_now *= 0.5;
 
     velocity += wishdir * speed_now * 10 * dt;
-    float mag_velocity = velocity.magnitude();
+    float mag_velocity = Vec3(velocity.x, 0, velocity.z).magnitude();
     if (mag_velocity > speed_now) {
-        velocity = velocity * (speed_now/mag_velocity);
+        float multi = speed_now/mag_velocity;
+        velocity.x *= multi;
+        velocity.z *= multi;
     }
     //apply ground friction
     float friction = speed_now*0.5 * dt;
@@ -104,8 +106,8 @@ void Player::ground_accelerate(const Vec3& wishdir, float dt) {
 
 //code literally copied directly from source sdk
 void Player::air_accelerate(const Vec3& wishdir, float dt) {
-    float accel = 800;
-    float currentspeed = velocity.magnitude();
+    float accel = 1500;
+    float currentspeed = Vec3(velocity.x, 0, velocity.z).magnitude();
     float addspeed = 0.1;
     float accelspeed = 0.1;
 	float wishspd = 1;
@@ -135,6 +137,13 @@ void Player::air_accelerate(const Vec3& wishdir, float dt) {
 	
 	// Adjust pmove vel.
     velocity += wishdir * accelspeed;
+}
+
+void Player::bleed_speed(float fraction) {
+    //float currentspeed = Vec3(velocity.x, 0, velocity.z).magnitude();
+    //newspeed *= (1 - fraction);
+    velocity.x *= (1 - fraction);
+    velocity.z *= (1 - fraction);
 }
     
 }
