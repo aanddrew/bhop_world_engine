@@ -4,6 +4,8 @@ This is a bunnyhopping game, implementing various aspects which I like from quak
 
 [Here's a youtube video showcasing the engine which powers it.](https://youtu.be/t-kWDM4dkZM)
 
+[Here's a video about getting the air strafing implemented.](https://www.youtube.com/watch?v=L3MLI-Tspik)
+
 The 2d graphics are done in sfml and the rest is done by yours truly.
 
 To build it simply do "make bhop_world"
